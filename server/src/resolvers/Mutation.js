@@ -33,6 +33,11 @@ async function login(parent, args, context, info) {
 async function post(parent, args, context, info) {
   const { userId } = context;
 
+  let postedBy = undefined
+  if (userId) {
+    postedBy = { connect: { id: userId } }
+  }
+
   const newLink = await context.prisma.link.create({
     data: {
       url: args.url,
